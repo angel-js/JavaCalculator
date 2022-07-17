@@ -1,5 +1,6 @@
 package JavaCalculator;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 class Operaciones{
     public static void main(String[] args) { 
@@ -17,8 +18,20 @@ class Operaciones{
             System.out.println("Para Sumar presione la opción 4: ");
             // Ingreso por teclado 
             Scanner lectura = new Scanner (System.in);
-            Integer opcion = lectura.nextInt();
-
+            Integer opcion = 0;
+            boolean continua;
+            do{
+                try {
+                    continua = false;
+                    opcion = lectura.nextInt();
+                } catch (InputMismatchException ex){
+                    System.out.println("Debe Ingresar Obligatoriamente un numero Entero: ");
+                    System.out.println(ex.getMessage());
+                    lectura.nextInt();
+                    continua = true;
+                } 
+            } while (continua);
+            
             // Switch para las opciones
             switch(opcion){
                 case 1:
@@ -46,7 +59,7 @@ class Operaciones{
                 System.out.println("Ingrese los numeros que desea Dividir: ");
                 Double div1 = lectura.nextDouble();
                 Double div2 = lectura.nextDouble();
-                Double divisResult = multiplicacion(div1, div2);
+                Double divisResult = division(div1, div2);
                 System.out.println("La División de ambos numeros nos resulta: " + divisResult);
                 break;
                 default:
@@ -85,25 +98,45 @@ class Operaciones{
 
         /* SUMA */
     public static double suma(double a, double b){
-        double i = a + b;
+        double i = 0;
+        try {
+            i = a + b;
+        } catch (ArithmeticException x){
+            System.out.println("Tenemos un ERROR!: "+ x.getMessage());
+        }
         return i;
     }
 
         /* RESTA */
     public static double resta(double a, double b){
-        double i = a - b;
+        double i = 0;
+        try {
+            i = a - b;
+        } catch (ArithmeticException x){
+            System.out.println("Tenemos un ERROR!: "+ x.getMessage());
+        }
         return i;
     }
 
         /* MULTIPLICACION */
     public static double multiplicacion(double a, double b){
-        double i = a * b;
+        double i = 0;
+        try {
+            i = a * b;
+        } catch (ArithmeticException x){
+            System.out.println("Tenemos un ERROR!: "+ x.getMessage());
+        }
         return i;
     }
 
         /* DIVISION */
     public static double division(double a, double b){
-        double i = a / b;
+        double i = 0;
+        try{
+            i = a / b;
+        } catch (ArithmeticException x) {
+            System.out.println("Tenemos un ERROR!: "+ x.getMessage());
+        }
         return i;
     }
 }
